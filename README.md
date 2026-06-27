@@ -1,9 +1,3 @@
-# Networking Labs
-
-Hands-on networking labs covering DNS, DHCP, TCP/IP, 
-Wireshark, and Connectivity Troubleshooting.
-
----
 
 ## Lab 1 - DNS Troubleshooting
 
