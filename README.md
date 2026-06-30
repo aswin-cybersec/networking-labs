@@ -93,3 +93,51 @@ ipconfig commands.
 - Never set static IP inside DHCP scope range
 - ipconfig /release and /renew is first fix for
   any DHCP related complaint
+
+---
+
+## Lab 3 - Network Troubleshooting
+
+### Objective
+Use advanced command-line tools to trace network paths,
+analyze active connections, inspect ARP tables, and
+review routing logic.
+
+### Tools Used
+- tracert
+- netstat
+- netstat -ano
+- tasklist
+- arp -a
+- route print
+
+### Steps Performed
+
+| Step | Command | Finding |
+|------|---------|---------|
+| 1 | tracert google.com | Path traced, VirtualBox NAT shows single hop |
+| 2 | tracert (invalid domain) | DNS resolution failure detected |
+| 3 | netstat | 20+ active HTTPS connections found |
+| 4 | netstat -ano | Mapped connections to PIDs |
+| 5 | tasklist findstr | Identified msedgewebview2.exe on suspicious PID |
+| 6 | arp -a | Mapped IP-to-MAC for gateway and DHCP server |
+| 7 | route print | Reviewed local and default routing table |
+
+### Key Findings
+- tracert resolves DNS before tracing - fails immediately 
+  if domain doesn't exist
+- CLOSE_WAIT connections indicate app not properly 
+  closing sockets
+- ARP table can detect spoofing - watch for gateway 
+  MAC address changes
+- route print confirms gateway routing for non-local traffic
+
+### Lessons Learned
+- netstat -ano + tasklist = standard process identification 
+  workflow for suspicious connections
+- tracert failure with "unable to resolve" = DNS problem, 
+  not network problem
+- ARP spoofing detection starts with knowing your gateway's 
+  correct MAC address
+- This workflow is foundational for SOC malware/C2 detection
+
